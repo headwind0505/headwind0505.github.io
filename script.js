@@ -16,7 +16,7 @@ const messageRefresh = document.querySelector(".message-refresh");
 
 // Paste your Google Form embed URL and published Google Sheet CSV URL here.
 const MESSAGE_FORM_EMBED_URL = "https://docs.google.com/forms/d/e/1FAIpQLSc9D_YeiuF3sjbS278yd5lSC4GLKCJOrjrMZRsXzH69KEuk6w/viewform?embedded=true";
-const MESSAGE_SHEET_CSV_URL = "";
+const MESSAGE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSFPHkk-bMXdYHSgc084MSvomMIXWKwVKs6u7UefxaSWikIkFTuNwG0eLobKT_jXO4Ln8WMNN1YRELq/pub?gid=1046313822&single=true&output=csv";
 
 const heroLanguages = [
   { greeting: "你好，我是", name: "冯 时", size: "chinese" },
