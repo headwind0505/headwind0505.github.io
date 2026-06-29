@@ -15,7 +15,7 @@ const messageStatus = document.querySelector("[data-message-status]");
 const messageRefresh = document.querySelector(".message-refresh");
 
 // Paste your Google Form embed URL and published Google Sheet CSV URL here.
-const MESSAGE_FORM_EMBED_URL = "";
+const MESSAGE_FORM_EMBED_URL = "https://docs.google.com/forms/d/e/1FAIpQLSc9D_YeiuF3sjbS278yd5lSC4GLKCJOrjrMZRsXzH69KEuk6w/viewform?embedded=true";
 const MESSAGE_SHEET_CSV_URL = "";
 
 const heroLanguages = [
