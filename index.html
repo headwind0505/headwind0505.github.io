@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Feng Shi | Research, Photography, Videos, Community</title>
+    <title>Feng Shi | Research, Photography, Videos, Community, Message Board</title>
     <meta
       name="description"
-      content="Personal website for Feng Shi: research profile, CV, photography sets, videos, and community links."
+      content="Personal website for Feng Shi: research profile, CV, photography sets, videos, community links, and message board."
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
@@ -25,6 +25,7 @@
         <a href="#photography" data-target="photography">Photography</a>
         <a href="#videos" data-target="videos">Videos</a>
         <a href="#community" data-target="community">Community</a>
+        <a href="#message-board" data-target="message-board">Message Board</a>
       </nav>
 
       <div class="nav-note">
@@ -50,6 +51,7 @@
               <a href="#photography">Photography</a>
               <a href="#videos">Videos</a>
               <a href="#community">Community</a>
+              <a href="#message-board">Message Board</a>
             </div>
           </div>
 
@@ -405,6 +407,44 @@
             Visit hlppp.github.io
           </a>
         </article>
+      </section>
+
+      <section id="message-board" class="section-panel message-section" aria-labelledby="message-title">
+        <div class="section-heading section-heading-row">
+          <div>
+            <p class="eyebrow">Visitor notes</p>
+            <h2 id="message-title">Message Board</h2>
+          </div>
+          <button class="message-refresh" type="button">Refresh messages</button>
+        </div>
+
+        <div class="message-layout">
+          <article class="message-form-card">
+            <h3>Leave a Message</h3>
+            <p>
+              A Google Form can collect your name, message, time, and optional
+              city/country or affiliation.
+            </p>
+            <div class="message-form-placeholder" data-form-placeholder>
+              Google Form is not connected yet.
+            </div>
+            <iframe
+              class="message-form-frame"
+              data-form-frame
+              title="Message board Google Form"
+              loading="lazy"
+              hidden
+            ></iframe>
+          </article>
+
+          <article class="message-list-card">
+            <div class="message-list-heading">
+              <h3>Messages</h3>
+              <p data-message-status>Waiting for Google Sheet connection.</p>
+            </div>
+            <div class="message-list" data-message-list></div>
+          </article>
+        </div>
       </section>
     </main>
 
