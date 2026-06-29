@@ -803,20 +803,6 @@ h4 {
   color: var(--muted-strong);
 }
 
-.message-form-placeholder {
-  min-height: 280px;
-  display: grid;
-  place-items: center;
-  color: var(--muted);
-  background:
-    linear-gradient(90deg, rgba(155, 210, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(rgba(155, 210, 255, 0.05) 1px, transparent 1px),
-    rgba(2, 7, 17, 0.46);
-  background-size: 24px 24px;
-  border: 1px dashed rgba(155, 210, 255, 0.24);
-  border-radius: var(--radius);
-}
-
 .message-form-frame {
   width: 100%;
   min-height: 520px;

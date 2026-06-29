@@ -9,7 +9,6 @@ const heroCopy = document.querySelector(".hero-copy");
 const rotatingGreeting = document.querySelector(".rotating-greeting");
 const rotatingName = document.querySelector(".rotating-name");
 const messageFormFrame = document.querySelector("[data-form-frame]");
-const messageFormPlaceholder = document.querySelector("[data-form-placeholder]");
 const messageList = document.querySelector("[data-message-list]");
 const messageStatus = document.querySelector("[data-message-status]");
 const messageRefresh = document.querySelector(".message-refresh");
@@ -250,10 +249,9 @@ async function loadMessages() {
 }
 
 function setupMessageBoard() {
-  if (messageFormFrame && messageFormPlaceholder && MESSAGE_FORM_EMBED_URL) {
+  if (messageFormFrame && MESSAGE_FORM_EMBED_URL) {
     messageFormFrame.src = MESSAGE_FORM_EMBED_URL;
     messageFormFrame.hidden = false;
-    messageFormPlaceholder.hidden = true;
   }
 
   if (messageRefresh) {
