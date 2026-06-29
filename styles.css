@@ -849,6 +849,41 @@ h4 {
   text-transform: uppercase;
 }
 
+.message-context {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 12px;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+.message-place,
+.message-weather {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  line-height: 1.25;
+}
+
+.message-place {
+  color: #d7eaff;
+  background: rgba(90, 168, 255, 0.14);
+  border: 1px solid rgba(155, 210, 255, 0.22);
+  font-weight: 700;
+}
+
+.message-weather {
+  color: #fff2c8;
+  background: rgba(255, 196, 87, 0.13);
+  border: 1px solid rgba(255, 215, 128, 0.22);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
 .message-text {
   margin-bottom: 0;
   color: var(--muted-strong);

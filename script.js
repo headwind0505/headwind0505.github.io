@@ -140,9 +140,10 @@ function normalizeHeader(value) {
 
 function pickField(record, candidates) {
   const keys = Object.keys(record);
-  const match = keys.find((key) =>
+  const matches = keys.filter((key) =>
     candidates.some((candidate) => normalizeHeader(key).includes(candidate))
   );
+  const match = matches.find((key) => record[key].trim()) || matches[0];
 
   return match ? record[match].trim() : "";
 }
@@ -186,21 +187,45 @@ function renderMessages(records) {
       "country",
       "location",
       "affiliation",
+      "living",
+      "currently living",
     ]);
+    const weather = pickField(record, ["weather"]);
     const message = pickField(record, ["message", "comment", "note"]);
     const item = document.createElement("article");
     const meta = document.createElement("div");
+    const context = document.createElement("div");
     const text = document.createElement("p");
 
     item.className = "message-item";
     meta.className = "message-meta";
+    context.className = "message-context";
     text.className = "message-text";
-    meta.textContent = [formatMessageDate(time), name || "Anonymous", place]
+    meta.textContent = [formatMessageDate(time), name || "Anonymous"]
       .filter(Boolean)
       .join(" / ");
+
+    if (place) {
+      const placeDetail = document.createElement("span");
+      placeDetail.className = "message-place";
+      placeDetail.textContent = `Living in ${place}`;
+      context.append(placeDetail);
+    }
+
+    if (weather) {
+      const weatherDetail = document.createElement("span");
+      weatherDetail.className = "message-weather";
+      weatherDetail.textContent = `Weather: ${weather}`;
+      context.append(weatherDetail);
+    }
+
     text.textContent = message || "(No message text)";
 
-    item.append(meta, text);
+    item.append(meta);
+    if (context.children.length) {
+      item.append(context);
+    }
+    item.append(text);
     messageList.append(item);
   });
 }
