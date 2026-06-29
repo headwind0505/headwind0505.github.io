@@ -1,11 +1,7 @@
 const navLinks = Array.from(document.querySelectorAll(".menu a"));
-const sections = navLinks
-  .map((link) => document.getElementById(link.dataset.target))
-  .filter(Boolean);
+const pageLinks = Array.from(document.querySelectorAll('a[href^="#"]'));
+const pages = Array.from(document.querySelectorAll(".section-panel"));
 const photoImages = Array.from(document.querySelectorAll(".photo-set img"));
-const photographyLinks = Array.from(
-  document.querySelectorAll('.hero-actions a[href="#photography"]')
-);
 const photographyMusic = document.getElementById("photography-music");
 const musicToggle = document.querySelector(".music-toggle");
 const volumeSlider = document.querySelector(".volume-slider");
@@ -14,12 +10,16 @@ const rotatingGreeting = document.querySelector(".rotating-greeting");
 const rotatingName = document.querySelector(".rotating-name");
 const heroLanguages = [
   { greeting: "你好，我是", name: "冯 时", size: "chinese" },
-  { greeting: "こんにちは、", name: "フウ　ジです", size: "japanese" },
+  { greeting: "こんにちは、", name: "フウ ジです", size: "japanese" },
   { greeting: "Bonjour, je suis", name: "Feng Shi", size: "large" },
 ];
 let heroLanguageIndex = 0;
 
 function applyHeroLanguage(language) {
+  if (!rotatingGreeting || !rotatingName) {
+    return;
+  }
+
   rotatingGreeting.textContent = language.greeting;
   rotatingName.textContent = language.name;
 
@@ -39,6 +39,29 @@ function setActiveSection(id) {
   });
 }
 
+function showPage(id, updateHistory = true) {
+  const targetId = id || "home";
+  const targetPage = document.getElementById(targetId);
+
+  if (!targetPage) {
+    return;
+  }
+
+  pages.forEach((page) => {
+    page.classList.toggle("page-active", page.id === targetId);
+  });
+
+  setActiveSection(targetId);
+
+  if (updateHistory) {
+    history.replaceState(null, "", `#${targetId}`);
+  }
+
+  if (targetId === "photography") {
+    playPhotographyMusic();
+  }
+}
+
 function setMusicButtonState(isPlaying) {
   if (!musicToggle) {
     return;
@@ -53,12 +76,26 @@ function playPhotographyMusic() {
     return;
   }
 
-  photographyMusic.play().then(() => {
-    setMusicButtonState(true);
-  }).catch(() => {
-    setMusicButtonState(false);
-  });
+  photographyMusic
+    .play()
+    .then(() => {
+      setMusicButtonState(true);
+    })
+    .catch(() => {
+      setMusicButtonState(false);
+    });
 }
+
+pageLinks.forEach((link) => {
+  link.addEventListener("click", (event) => {
+    const targetId = link.getAttribute("href").replace("#", "");
+
+    if (targetId) {
+      event.preventDefault();
+      showPage(targetId);
+    }
+  });
+});
 
 navLinks.forEach((link) => {
   link.addEventListener("mouseenter", () => {
@@ -67,27 +104,6 @@ navLinks.forEach((link) => {
 
   link.addEventListener("focus", () => {
     setActiveSection(link.dataset.target);
-  });
-
-  link.addEventListener("click", (event) => {
-    event.preventDefault();
-    const target = document.getElementById(link.dataset.target);
-
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth", block: "start" });
-      history.replaceState(null, "", `#${link.dataset.target}`);
-      setActiveSection(link.dataset.target);
-
-      if (link.dataset.target === "photography") {
-        playPhotographyMusic();
-      }
-    }
-  });
-});
-
-photographyLinks.forEach((link) => {
-  link.addEventListener("click", () => {
-    playPhotographyMusic();
   });
 });
 
@@ -114,23 +130,6 @@ if (photographyMusic && musicToggle) {
   });
 }
 
-const observer = new IntersectionObserver(
-  (entries) => {
-    const visible = entries
-      .filter((entry) => entry.isIntersecting)
-      .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-
-    if (visible) {
-      setActiveSection(visible.target.id);
-    }
-  },
-  {
-    rootMargin: "-25% 0px -55% 0px",
-    threshold: [0.08, 0.2, 0.4, 0.7],
-  }
-);
-
-sections.forEach((section) => observer.observe(section));
 photoImages.forEach((image) => {
   if (image.complete && image.naturalWidth === 0) {
     image.hidden = true;
@@ -157,4 +156,8 @@ if (rotatingGreeting && rotatingName) {
   }, 5000);
 }
 
-setActiveSection(location.hash.replace("#", "") || "research");
+window.addEventListener("popstate", () => {
+  showPage(location.hash.replace("#", "") || "home", false);
+});
+
+showPage(location.hash.replace("#", "") || "home", false);

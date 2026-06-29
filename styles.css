@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=Noto+Serif+JP:wght@500;700&family=Noto+Serif+SC:wght@500;700&display=swap");
+
 :root {
   --bg: #030711;
   --panel: #07111f;
@@ -28,10 +30,10 @@ body {
   background:
     radial-gradient(circle at 80% 10%, rgba(23, 51, 86, 0.28), transparent 34rem),
     linear-gradient(135deg, #02040a 0%, #071426 42%, #020711 100%);
-  font-family:
-    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
   line-height: 1.6;
+  overflow: hidden;
 }
 
 a {
@@ -48,7 +50,7 @@ img {
   position: fixed;
   inset: 0 auto 0 0;
   z-index: 20;
-  width: 260px;
+  width: 72px;
   padding: 28px 22px;
   display: flex;
   flex-direction: column;
@@ -56,12 +58,21 @@ img {
   background: rgba(2, 7, 17, 0.82);
   border-right: 1px solid var(--line);
   backdrop-filter: blur(22px);
+  overflow: hidden;
+  transition: width 260ms ease, background 260ms ease;
+}
+
+.side-nav:hover,
+.side-nav:focus-within {
+  width: 260px;
+  background: rgba(2, 7, 17, 0.93);
 }
 
 .brand {
   display: flex;
   align-items: center;
   gap: 12px;
+  width: 216px;
 }
 
 .brand-mark {
@@ -81,6 +92,26 @@ img {
   display: block;
 }
 
+.brand > span:last-child,
+.menu,
+.nav-note {
+  opacity: 0;
+  transform: translateX(-8px);
+  pointer-events: none;
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.side-nav:hover .brand > span:last-child,
+.side-nav:focus-within .brand > span:last-child,
+.side-nav:hover .menu,
+.side-nav:focus-within .menu,
+.side-nav:hover .nav-note,
+.side-nav:focus-within .nav-note {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
 .brand strong {
   font-size: 1rem;
 }
@@ -93,6 +124,7 @@ img {
 .menu {
   display: grid;
   gap: 10px;
+  width: 216px;
 }
 
 .menu a {
@@ -143,13 +175,39 @@ img {
 }
 
 main {
-  margin-left: 260px;
+  height: 100vh;
+  margin-left: 72px;
+  transition: margin-left 260ms ease;
 }
 
 .section-panel {
+  display: none;
+  height: 100vh;
   min-height: 100vh;
   padding: 86px clamp(24px, 6vw, 84px);
+  overflow-y: auto;
   scroll-margin-top: 0;
+}
+
+.section-panel:not(.page-active) {
+  display: none !important;
+}
+
+.section-panel.page-active {
+  display: block;
+  animation: pageReveal 520ms ease both;
+}
+
+@keyframes pageReveal {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .hero {
@@ -173,6 +231,11 @@ main {
   text-transform: uppercase;
 }
 
+.hero .eyebrow,
+.section-heading .eyebrow {
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
 h1,
 h2,
 h3,
@@ -183,14 +246,20 @@ p {
 
 h1 {
   margin-bottom: 40px;
-  font-size: clamp(6.0rem, 10vw, 7.8rem);
+  font-family: "Cormorant Garamond", "Noto Serif SC", "Noto Serif JP", Georgia,
+    serif;
+  font-size: clamp(6rem, 10vw, 8.4rem);
+  font-weight: 600;
   line-height: 0.88;
   letter-spacing: 0;
 }
 
 h2 {
   margin-bottom: 0;
-  font-size: clamp(2.2rem, 6vw, 3.4rem);
+  font-family: "Cormorant Garamond", "Noto Serif SC", "Noto Serif JP", Georgia,
+    serif;
+  font-size: clamp(2.8rem, 6vw, 5.2rem);
+  font-weight: 600;
   line-height: 0.95;
   letter-spacing: 0;
 }
@@ -207,40 +276,50 @@ h2 {
 }
 
 .hero-copy.is-cjk-title .rotating-greeting {
+  font-family: "Noto Serif SC", "Noto Serif JP", "Cormorant Garamond", serif;
   font-size: clamp(1.75rem, 4.2vw, 2.65rem);
   line-height: 1.12;
 }
 
 .hero-copy.is-cjk-title .rotating-name {
+  font-family: "Noto Serif SC", "Noto Serif JP", "Cormorant Garamond", serif;
   font-size: clamp(4.2rem, 8vw, 5.8rem);
   line-height: 1;
 }
 
 .hero-copy.is-chinese-title .rotating-name {
-  padding-left: clamp(15rem, 7vw, 6.2rem);
+  padding-left: clamp(3.2rem, 10vw, 8rem);
 }
 
 .hero-copy.is-japanese-title .rotating-name {
-  font-size: clamp(2.9rem, 6vw, 4.2rem);
+  font-size: clamp(2.35rem, 5vw, 3.7rem);
   line-height: 1.08;
   white-space: nowrap;
 }
 
 h3 {
   color: var(--ink);
-  font-size: 1.06rem;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.45rem;
+  font-weight: 600;
+  line-height: 1.05;
 }
 
 h4 {
   margin-bottom: 8px;
   color: var(--ink);
-  font-size: 1rem;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.28rem;
+  font-weight: 600;
+  line-height: 1.15;
 }
 
 .hero-lead {
   max-width: 680px;
   color: var(--muted-strong);
-  font-size: clamp(1.05rem, 2vw, 1.28rem);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(1.35rem, 2.3vw, 1.75rem);
+  line-height: 1.32;
 }
 
 .hero-actions {
@@ -347,6 +426,7 @@ h4 {
 
 .hero-card strong {
   display: block;
+  font-family: "Cormorant Garamond", Georgia, serif;
   font-size: 1.2rem;
   line-height: 1.3;
 }
@@ -655,6 +735,10 @@ h4 {
 }
 
 @media (max-width: 960px) {
+  body {
+    overflow: auto;
+  }
+
   .side-nav {
     position: sticky;
     top: 0;
@@ -662,15 +746,31 @@ h4 {
     min-height: auto;
     padding: 14px 18px;
     gap: 16px;
+    overflow: visible;
+  }
+
+  .side-nav:hover,
+  .side-nav:focus-within {
+    width: 100%;
   }
 
   .brand {
     justify-content: space-between;
+    width: 100%;
+  }
+
+  .brand > span:last-child,
+  .menu,
+  .nav-note {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
   }
 
   .menu {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 8px;
+    width: 100%;
   }
 
   .menu a {
@@ -689,12 +789,15 @@ h4 {
   }
 
   main {
+    height: auto;
     margin-left: 0;
   }
 
   .section-panel {
+    height: auto;
     min-height: auto;
     padding: 54px 18px;
+    overflow-y: visible;
     scroll-margin-top: 126px;
   }
 
